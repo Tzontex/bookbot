@@ -1,3 +1,6 @@
+import sys
+from stats import BookWordCount
+
 
 def ReadBook(BookPath):
     try:
@@ -8,7 +11,7 @@ def ReadBook(BookPath):
         print(f"File not found: {BookPath}")
         return ""
 
-def BookWordCount(BookContent):
+#def BookWordCount(BookContent):
     Wordcount =BookContent.split()
     return len(Wordcount)
 
@@ -34,11 +37,15 @@ def PrintReport(SortedReport, Book, BookWordCount):
     print(f"{BookWordCount} words found in the document")
     print("")
     for Charakter in SortedReport:
-        print(f"The '{Charakter[0]}' character was found {Charakter[1]} times")
+        print(f'{Charakter[0]}: {Charakter[1]}')
     print("--- End report ---")
 
 def main():
-    Book ="books/frankenstein.txt"
+    
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    Book = sys.argv[1]
     BookContent = ReadBook(Book)
     BookWCount = BookWordCount(BookContent)
     CharCount = CharakterCount(BookContent)
